@@ -1,0 +1,9 @@
+[Unit]
+Description=can-on-serial-com-service
+After=network.target
+
+[Service]
+User=root
+ExecStart=/usr/local/bin/can-on-serial-com
+Restart=always
+RestartSec=5
