@@ -22,8 +22,8 @@ class CanOnSerialCom {
         std::thread canToSerialThread(&CanOnSerialCom::ProxyCanToSerial, this);
         std::thread serialToCanThread(&CanOnSerialCom::ProxySerialToCan, this);
 
-        canToSerialThread.join();
-        serialToCanThread.join();
+        m_canToSerialThread.join();
+        m_serialToCanThread.join();
     }
 
     inline void Disconnect() {
@@ -37,6 +37,8 @@ class CanOnSerialCom {
     std::string m_canDevice;
     std::string m_serialDevice;
     mn::CppLinuxSerial::SerialPort m_serialPort;
+    std::thread m_canToSerialThread;
+    std::thread m_serialToCanThread;
     bool m_isConnected = true;
     int m_canSocket;
 
