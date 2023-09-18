@@ -1,6 +1,8 @@
 #pragma once
 
-#include <cstdint> // Because of bad include in CppLinuxSerial
+// Because of bad include in CppLinuxSerial
+#include <cstdint>
+#include <iterator>
 
 #include <CppLinuxSerial/SerialPort.hpp>
 
