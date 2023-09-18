@@ -11,6 +11,6 @@ inline void signallCallback(int signum) {
 
 int main() {
 
-    signal(SIGINT, signal_callback_handler);
+    signal(SIGINT, signallCallback);
     return 0;
 }
