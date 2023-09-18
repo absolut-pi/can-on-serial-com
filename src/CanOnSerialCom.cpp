@@ -126,7 +126,7 @@ void CanOnSerialCom::ProxySerialToCan() {
             int canId = stoi(splittedData[0], nullptr, 16);
 
             frame.can_id = canId;
-            frame.can_dlc = splittedData.size() - 1;
+            frame.can_dlc = splittedData.size();
 
             for (int i = 1; i < frame.can_dlc; i++)
                 frame.data[i] = stoi(splittedData[i], nullptr, 16);
