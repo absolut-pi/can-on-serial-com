@@ -82,9 +82,7 @@ void CanOnSerialCom::ProxyCanToSerial() {
 
             print("Data from can to serial com: {}\n", data.data());
 
-            m_serialPort.Open();
             m_serialPort.Write(data);
-            m_serialPort.Close();
         }
         this_thread::sleep_for(1ms);
     }
@@ -111,9 +109,7 @@ void CanOnSerialCom::ProxySerialToCan() {
         struct can_frame frame;
         string data;
 
-        m_serialPort.Open();
         m_serialPort.Read(data);
-        m_serialPort.Close();
 
         if (!data.empty()) {
             print("Data from serial com to can: {}\n", data.data());
