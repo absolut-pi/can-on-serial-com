@@ -12,7 +12,9 @@ void signallCallback(int signum) {
 
     cout << "Signal " << signum << " received!" << endl;
 
+    com.Disconnect();
     com.ClearVirtualCan();
+    
     exit(signum);
 }
 

@@ -70,7 +70,7 @@ void CanOnSerialCom::ProxyCanToSerial() {
     if (bind(m_canSocket, (struct sockaddr*)&addr, sizeof(addr)) < 0)
         throw runtime_error("Failed to bind can socket");
 
-    while (true) {
+    while (m_isConnected) {
         struct can_frame frame;
         int nbytes = read(m_canSocket, &frame, sizeof(struct can_frame));
 
@@ -105,7 +105,7 @@ void CanOnSerialCom::ProxySerialToCan() {
     if (bind(m_canSocket, (struct sockaddr*)&addr, sizeof(addr)) < 0)
         throw runtime_error("Failed to bind can socket");
 
-    while (true) {
+    while (m_isConnected) {
         struct can_frame frame;
         string data;
 

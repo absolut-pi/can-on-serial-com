@@ -4,6 +4,7 @@
 
 #include <string>
 #include <thread>
+#include <vector>
 
 class CanOnSerialCom {
   public:
@@ -25,12 +26,18 @@ class CanOnSerialCom {
         serialToCanThread.join();
     }
 
+    inline void Disconnect() {
+        m_isConnected = false;
+        m_serialPort.Close();
+    }
+
     void ClearVirtualCan();
 
   private:
     std::string m_canDevice;
     std::string m_serialDevice;
     mn::CppLinuxSerial::SerialPort m_serialPort;
+    bool m_isConnected = true;
     int m_canSocket;
 
     void CreateVirtualCan();
