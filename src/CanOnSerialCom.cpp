@@ -82,6 +82,7 @@ void CanOnSerialCom::ProxyCanToSerial() {
 
             print("Data from can to serial com: {}\n", data.data());
 
+            m_serialPort.SetTimeout(1000);
             m_serialPort.Open();
             m_serialPort.Write(data);
             m_serialPort.Close();
