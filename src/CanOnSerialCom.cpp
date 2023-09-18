@@ -3,6 +3,7 @@
 #include <fmt/format.h>
 
 #include <stdexcept>
+#include <thread>
 #include <vector>
 
 #include <linux/can.h>
@@ -82,6 +83,7 @@ void CanOnSerialCom::ProxyCanToSerial() {
             m_serialPort.Write(data);
             m_serialPort.Close();
         }
+        this_thread::sleep_for(1ms);
     }
 }
 
@@ -109,21 +111,25 @@ void CanOnSerialCom::ProxySerialToCan() {
         m_serialPort.Read(data);
         m_serialPort.Close();
 
-        vector<string> splittedData;
-        getline(cin, data);
-        stringstream ss(data);
-        string token;
-        while (getline(ss, token, ' '))
-            splittedData.push_back(token);
+        if (!data.empty()) {
+            vector<string> splittedData;
+            getline(cin, data);
+            stringstream ss(data);
+            string token;
+            while (getline(ss, token, ' '))
+                splittedData.push_back(token);
 
-        int canId = stoi(splittedData[0], nullptr, 16);
+            int canId = stoi(splittedData[0], nullptr, 16);
 
-        frame.can_id = canId;
-        frame.can_dlc = 8;
+            frame.can_id = canId;
+            frame.can_dlc = 8;
 
-        for (int i = 0; i < 8; i++)
-            frame.data[i] = stoi(splittedData[i + 1], nullptr, 16);
+            for (int i = 0; i < 8; i++)
+                frame.data[i] = stoi(splittedData[i + 1], nullptr, 16);
 
-        write(m_canSocket, &frame, sizeof(struct can_frame));
+            write(m_canSocket, &frame, sizeof(struct can_frame));
+        }
+
+        this_thread::sleep_for(1ms);
     }
 }
