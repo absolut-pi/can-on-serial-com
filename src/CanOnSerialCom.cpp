@@ -80,9 +80,6 @@ void CanOnSerialCom::ProxyCanToSerial() {
             for (int i = 0; i < frame.can_dlc; i++)
                 data += fmt::format("{:02X} ", frame.data[i]);
 
-            if (data.size() > 8)
-                data = data.substr(data.size() - 8, 8);
-
             print("Data from can to serial com: {}\n", data.data());
 
             m_serialPort.Open();
@@ -123,6 +120,10 @@ void CanOnSerialCom::ProxySerialToCan() {
             for (size_t p = 0, q = 0; p != data.npos; p = q)
                 splittedData.push_back(data.substr(
                     p + (p != 0), (q = data.find(" ", p + 1)) - p - (p != 0)));
+
+            if (splittedData.size() > 8)
+                splittedData =
+                    vector<string>(splittedData.end() - 8, splittedData.end());
 
             print("Data from serial com to can: {}\n", data.data());
 
