@@ -15,8 +15,8 @@ class CanOnSerialCom {
     ~CanOnSerialCom() { ClearVirtualCan(); }
 
     inline void Proxy() {
-        ClearVirtualCan();
-        CreateVirtualCan();
+       // ClearVirtualCan();
+        //CreateVirtualCan();
         CreateSerialPort();
 
         std::thread canToSerialThread(&CanOnSerialCom::ProxyCanToSerial, this);
