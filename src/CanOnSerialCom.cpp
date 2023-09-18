@@ -57,6 +57,7 @@ void CanOnSerialCom::CreateSerialPort() {
 
 void CanOnSerialCom::ProxyCanToSerial() {
     using namespace std;
+    using namespace fmt;
     using namespace mn::CppLinuxSerial;
 
     struct sockaddr_can addr;
@@ -79,6 +80,8 @@ void CanOnSerialCom::ProxyCanToSerial() {
             for (int i = 0; i < frame.can_dlc; i++)
                 data += fmt::format("{:02X} ", frame.data[i]);
 
+            print("Data from can to serial com: {}\n", data.data());
+
             m_serialPort.Open();
             m_serialPort.Write(data);
             m_serialPort.Close();
@@ -89,6 +92,7 @@ void CanOnSerialCom::ProxyCanToSerial() {
 
 void CanOnSerialCom::ProxySerialToCan() {
     using namespace std;
+    using namespace fmt;
     using namespace mn::CppLinuxSerial;
 
     struct sockaddr_can addr;
@@ -112,6 +116,8 @@ void CanOnSerialCom::ProxySerialToCan() {
         m_serialPort.Close();
 
         if (!data.empty()) {
+            print("Data from serial com to can: {}\n", data.data());
+
             vector<string> splittedData;
             getline(cin, data);
             stringstream ss(data);
