@@ -1,0 +1,6 @@
+[submodule "vendor/fmt"]
+	path = vendor/fmt
+	url = https://github.com/fmtlib/fmt.git
+[submodule "vendor/CppLinuxSerial"]
+	path = vendor/CppLinuxSerial
+	url = https://github.com/gbmhunter/CppLinuxSerial.git
