@@ -10,21 +10,18 @@ class CanOnSerialCom {
   public:
     CanOnSerialCom(const std::string& canDevice,
                    const std::string& serialDevice)
-        : m_canDevice(canDevice), m_serialDevice(serialDevice) {}
-
-    ~CanOnSerialCom() { ClearVirtualCan(); }
-
-    inline void Proxy() {
-       // ClearVirtualCan();
-        //CreateVirtualCan();
-        //CreateSerialPort();
+        : m_canDevice(canDevice), m_serialDevice(serialDevice) { // ClearVirtualCan();
+        CreateVirtualCan();
+        CreateSerialPort();
 
         //std::thread canToSerialThread(&CanOnSerialCom::ProxyCanToSerial, this);
         //std::thread serialToCanThread(&CanOnSerialCom::ProxySerialToCan, this);
 
         //m_canToSerialThread.join();
         //m_serialToCanThread.join();
-    }
+      }
+
+    ~CanOnSerialCom() { ClearVirtualCan(); }
 
     inline void Disconnect() { m_isConnected = false; }
 

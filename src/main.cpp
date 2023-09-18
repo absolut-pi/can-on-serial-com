@@ -8,7 +8,7 @@
 int main() {
     using namespace std;
 
-    CanOnSerialCom("can0", "ttyACM0").Proxy();
+    CanOnSerialCom("can0", "ttyACM0");
 
     cout << "Press Ctrl+C to exit" << endl;
 
