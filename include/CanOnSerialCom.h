@@ -1,9 +1,5 @@
 #pragma once
 
-// Because of bad include in CppLinuxSerial
-#include <cstdint>
-#include <iterator>
-
 #include <CppLinuxSerial/SerialPort.hpp>
 
 #include <string>
