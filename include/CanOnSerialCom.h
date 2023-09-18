@@ -14,10 +14,10 @@ class CanOnSerialCom {
         CreateVirtualCan();
         CreateSerialPort();
 
-        //std::thread canToSerialThread(&CanOnSerialCom::ProxyCanToSerial, this);
+        std::thread canToSerialThread(&CanOnSerialCom::ProxyCanToSerial, this);
         //std::thread serialToCanThread(&CanOnSerialCom::ProxySerialToCan, this);
 
-        //m_canToSerialThread.join();
+        m_canToSerialThread.join();
         //m_serialToCanThread.join();
       }
 
