@@ -48,7 +48,7 @@ void CanOnSerialCom::CreateSerialPort() {
     const string device = format("/dev/{}", m_serialDevice);
 
     try {
-        m_serialPort = SerialPort(device, BaudRate::B_115200);
+        m_serialPort = SerialPort(device, 500000);
         m_serialPort.Open();
     } catch (const Exception& e) {
         throw runtime_error("Failed to open serial port");
