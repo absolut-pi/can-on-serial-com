@@ -1,13 +1,6 @@
 git submodule update --init --recursive
 cd vendor
 
-cd fmt
-mkdir build
-cd build
-cmake -DFMT_TEST=OFF ..
-make install
-cd ../..
-
 cd CppLinuxSerial
 mkdir build
 cd build
