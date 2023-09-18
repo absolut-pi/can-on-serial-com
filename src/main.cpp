@@ -5,12 +5,10 @@
 
 #include <signal.h>
 
-CanOnSerialCom com("can0", "ttyACM0");
-
 int main() {
     using namespace std;
 
-    com.Proxy();
+    CanOnSerialCom("can0", "ttyACM0").Proxy();
 
     cout << "Press Ctrl+C to exit" << endl;
 
