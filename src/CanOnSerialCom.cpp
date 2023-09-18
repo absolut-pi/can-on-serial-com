@@ -136,6 +136,8 @@ void CanOnSerialCom::ProxySerialToCan() {
             write(m_canSocket, &frame, sizeof(struct can_frame));
         }
 
+        printf("In thread\n");
+
         this_thread::sleep_for(1ms);
     }
 }
