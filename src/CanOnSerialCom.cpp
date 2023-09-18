@@ -82,7 +82,6 @@ void CanOnSerialCom::ProxyCanToSerial() {
 
             print("Data from can to serial com: {}\n", data.data());
 
-            m_serialPort.SetTimeout(1000);
             m_serialPort.Open();
             m_serialPort.Write(data);
             m_serialPort.Close();
@@ -112,6 +111,7 @@ void CanOnSerialCom::ProxySerialToCan() {
         struct can_frame frame;
         string data;
 
+        m_serialPort.SetTimeout(100);
         m_serialPort.Open();
         m_serialPort.Read(data);
         m_serialPort.Close();
