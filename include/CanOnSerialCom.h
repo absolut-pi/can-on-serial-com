@@ -21,8 +21,6 @@ class CanOnSerialCom {
         std::thread([this]() { ProxyCanToSerial(); }).detach();
     }
 
-    ~CanOnSerialCom() { ClearVirtualCan(); }
-
     inline void Disconnect() { m_isConnected = false; }
 
     void ClearVirtualCan();
