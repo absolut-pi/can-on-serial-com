@@ -1,6 +1,12 @@
 #include "CanOnSerialCom.h"
 
+CanOnSerialCom com("can0", "ttyACM0");
+
+inline void signallCallback(int signum) {
+    com.ClearVirtualCan();
+    exit(signum);
+}
+
 int main() {
-    CanOnSerialCom com("can0", "ttyACM0");
     return 0;
 }

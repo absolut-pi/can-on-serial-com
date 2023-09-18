@@ -23,6 +23,8 @@ class CanOnSerialCom {
 
     ~CanOnSerialCom() { ClearVirtualCan(); }
 
+    void ClearVirtualCan();
+
   private:
     std::string m_canDevice;
     std::string m_serialDevice;
@@ -34,6 +36,4 @@ class CanOnSerialCom {
 
     void ProxyCanToSerial();
     void ProxySerialToCan();
-
-    void ClearVirtualCan();
 };
