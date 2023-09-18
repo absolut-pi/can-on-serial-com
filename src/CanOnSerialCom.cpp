@@ -115,7 +115,7 @@ void CanOnSerialCom::ProxySerialToCan() {
         m_serialPort.Read(data);
         m_serialPort.Close();
 
-        if (!data.empty()) {
+        if (!data.empty() && data.find("\n") != string::npos) {
             print("Data from serial com to can: {}\n", data.data());
 
             vector<string> splittedData;
