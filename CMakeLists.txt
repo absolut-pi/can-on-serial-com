@@ -1,5 +1,10 @@
 cmake_minimum_required(VERSION 3.12)
 
+
+## Needed
+# https://github.com/fmtlib/fmt/releases/tag/10.1.1
+# https://github.com/absolut-pi/CppLinuxSerial
+
 project(can-on-serial-com)
 
 set(CMAKE_CXX_STANDARD 20)

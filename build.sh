@@ -1,4 +1,3 @@
-git submodule update --init --recursive
 mkdir build
 cd build
-make -j4
+sudo make -j4 install
