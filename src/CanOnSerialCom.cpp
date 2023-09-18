@@ -119,10 +119,9 @@ void CanOnSerialCom::ProxySerialToCan() {
             print("Data from serial com to can: {}\n", data.data());
 
             vector<string> splittedData;
-            stringstream ss(data);
-            string token;
-            while (getline(ss, token, ' ') && token.find('\n') == string::npos)
-                splittedData.push_back(token);
+            for (size_t p = 0, q = 0; p != data.npos; p = q)
+                splittedData.push_back(data.substr(
+                    p + (p != 0), (q = data.find(" ", p + 1)) - p - (p != 0)));
 
             int canId = stoi(splittedData[0], nullptr, 16);
 
