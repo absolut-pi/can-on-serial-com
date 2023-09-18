@@ -76,7 +76,7 @@ void CanOnSerialCom::ProxyCanToSerial() {
         struct can_frame frame;
         if (int nbytes = read(m_canSocket, &frame, sizeof(struct can_frame));
             nbytes > 0) {
-            string data;
+            string data = fmt::format("{:X} ", frame.can_id);
             for (int i = 0; i < frame.can_dlc; i++)
                 data += fmt::format("{:02X} ", frame.data[i]);
 
