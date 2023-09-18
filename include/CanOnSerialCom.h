@@ -26,13 +26,7 @@ class CanOnSerialCom {
         m_serialToCanThread.join();
     }
 
-    inline void Disconnect() noexcept {
-        m_isConnected = false;
-        try {
-            m_serialPort.Close();
-        } catch (std::system_error& e) {
-        }
-    }
+    inline void Disconnect() { m_isConnected = false; }
 
     void ClearVirtualCan();
 
