@@ -1,5 +1,7 @@
 #include "CanOnSerialCom.h"
 
+#include <signal.h>
+
 CanOnSerialCom com("can0", "ttyACM0");
 
 inline void signallCallback(int signum) {
@@ -8,5 +10,7 @@ inline void signallCallback(int signum) {
 }
 
 int main() {
+
+    signal(SIGINT, signal_callback_handler);
     return 0;
 }

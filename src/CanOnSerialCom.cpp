@@ -7,7 +7,6 @@
 
 #include <linux/can.h>
 #include <net/if.h>
-#include <signal.h>
 #include <sys/ioctl.h>
 #include <sys/socket.h>
 
