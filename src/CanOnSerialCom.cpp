@@ -49,7 +49,6 @@ void CanOnSerialCom::CreateSerialPort() {
 
     try {
         m_serialPort = SerialPort(device, BaudRate::B_115200);
-        m_serialPort.SetTimeout(100);
         m_serialPort.Open();
     } catch (const Exception& e) {
         throw runtime_error("Failed to open serial port");
@@ -114,6 +113,7 @@ void CanOnSerialCom::ProxySerialToCan() {
 
         m_serialPort.Open();
         m_serialPort.Read(data);
+        m_serialPort.Write("\n");
         m_serialPort.Close();
 
         if (!data.empty() && data.find("\n") != string::npos) {
