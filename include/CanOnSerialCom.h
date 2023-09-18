@@ -17,10 +17,10 @@ class CanOnSerialCom {
         std::thread([this]() {
           ProxySerialToCan();
         }).detach();
-        
-        //std::thread serialToCanThread(&CanOnSerialCom::ProxySerialToCan, this);
 
-        //m_serialToCanThread.join();
+        std::thread([this]() {
+          ProxyCanToSerial();
+        }).detach();
       }
 
     ~CanOnSerialCom() { ClearVirtualCan(); }
