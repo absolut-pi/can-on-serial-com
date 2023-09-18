@@ -3,6 +3,7 @@
 #include <fmt/format.h>
 
 #include <stdexcept>
+#include <thread>
 #include <vector>
 
 #include <linux/can.h>
@@ -37,6 +38,10 @@ void CanOnSerialCom::CreateVirtualCan() {
 
     if (m_canSocket < 0)
         throw runtime_error("Failed to create can socket");
+
+    for (;;) {
+        this_thread::sleep_for(chrono::milliseconds(100));
+    }
 }
 
 void CanOnSerialCom::CreateSerialPort() {
