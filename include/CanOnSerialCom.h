@@ -17,13 +17,13 @@ class CanOnSerialCom {
     inline void Proxy() {
        // ClearVirtualCan();
         //CreateVirtualCan();
-        CreateSerialPort();
+        //CreateSerialPort();
 
-        std::thread canToSerialThread(&CanOnSerialCom::ProxyCanToSerial, this);
-        std::thread serialToCanThread(&CanOnSerialCom::ProxySerialToCan, this);
+        //std::thread canToSerialThread(&CanOnSerialCom::ProxyCanToSerial, this);
+        //std::thread serialToCanThread(&CanOnSerialCom::ProxySerialToCan, this);
 
-        m_canToSerialThread.join();
-        m_serialToCanThread.join();
+        //m_canToSerialThread.join();
+        //m_serialToCanThread.join();
     }
 
     inline void Disconnect() { m_isConnected = false; }
