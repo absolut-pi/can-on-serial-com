@@ -117,13 +117,19 @@ void CanOnSerialCom::ProxySerialToCan() {
 
         if (!data.empty() && data.find("\n") != string::npos) {
             vector<string> splittedData;
+            splittedData.reserve(9);
+
             for (size_t p = 0, q = 0; p != data.npos; p = q)
                 splittedData.push_back(data.substr(
                     p + (p != 0), (q = data.find(" ", p + 1)) - p - (p != 0)));
 
             if (splittedData.size() > 9)
-                splittedData.erase(splittedData.begin(),
-                                   splittedData.end() - 9);
+                splittedData =
+                    vector<string>(splittedData.end() - 9, splittedData.end());
+
+            data = string();
+            for (const auto& s : splittedData)
+                data += s + " ";
 
             print("Data from serial com to can: {}\n", data.data());
 
