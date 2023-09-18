@@ -1,12 +1,13 @@
 #include "CanOnSerialCom.h"
 
 #include <iostream>
+#include <thread>
 
 #include <signal.h>
 
 CanOnSerialCom com("can0", "ttyACM0");
 
-inline void signallCallback(int signum) {
+void signallCallback(int signum) {
     using namespace std;
 
     cout << "Signal " << signum << " received!" << endl;
@@ -16,6 +17,12 @@ inline void signallCallback(int signum) {
 }
 
 int main() {
+    using namespace std;
+    
     signal(SIGINT, signallCallback);
+
+    for (;;)
+        this_thread::sleep_for(chrono::seconds(1));
+
     return 0;
 }
