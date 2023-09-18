@@ -19,6 +19,4 @@ add_subdirectory(src)
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 
-install(TARGETS ${PROJECT_NAME}
-    RUNTIME DESTINATION /usr/local/bin
-)
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/src/bin DESTINATION /usr/local/bin)
