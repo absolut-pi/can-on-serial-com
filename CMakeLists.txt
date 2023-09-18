@@ -17,6 +17,4 @@ include_directories(include
 
 add_subdirectory(src)
 
-set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
-
-install(DIRECTORY ${PROJECT_SOURCE_DIR}/src/bin DESTINATION /usr/local/bin)
+install(TARGETS ${PROJECT_NAME} DESTINATION bin)
