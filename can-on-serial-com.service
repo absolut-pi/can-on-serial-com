@@ -6,7 +6,7 @@ After=network.target
 User=root
 ExecStart=/usr/local/bin/can-on-serial-com
 Restart=always
-RestartSec=5
+RestartSec=1
 
 [Install]
 WantedBy=multi-user.target
