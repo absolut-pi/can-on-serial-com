@@ -126,6 +126,9 @@ void CanOnSerialCom::ProxySerialToCan() {
             while (splittedData[0].size() != 3)
                 splittedData.erase(splittedData.begin());
 
+            if (splittedData.empty())
+                continue;
+
             int canId = stoi(splittedData[0], nullptr, 16);
 
             frame.can_id = canId;
