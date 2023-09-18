@@ -9,7 +9,11 @@ class CanOnSerialCom {
   public:
     CanOnSerialCom(const std::string& canDevice,
                    const std::string& serialDevice)
-        : m_canDevice(canDevice), m_serialDevice(serialDevice) {
+        : m_canDevice(canDevice), m_serialDevice(serialDevice) {}
+
+    ~CanOnSerialCom() { ClearVirtualCan(); }
+
+    inline void Proxy() {
         ClearVirtualCan();
         CreateVirtualCan();
         CreateSerialPort();
@@ -20,8 +24,6 @@ class CanOnSerialCom {
         canToSerialThread.join();
         serialToCanThread.join();
     }
-
-    ~CanOnSerialCom() { ClearVirtualCan(); }
 
     void ClearVirtualCan();
 
