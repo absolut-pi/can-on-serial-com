@@ -1,3 +1,0 @@
-[submodule "vendor/CppLinuxSerial"]
-	path = vendor/CppLinuxSerial
-	url = https://github.com/absolut-pi/CppLinuxSerial.git
