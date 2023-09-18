@@ -115,29 +115,24 @@ void CanOnSerialCom::ProxySerialToCan() {
         m_serialPort.Read(data);
         m_serialPort.Close();
 
-        printf("%i\n", 1);
         if (!data.empty()) {
             print("Data from serial com to can: {}\n", data.data());
-            printf("%i\n", 2);
+
             vector<string> splittedData;
-            getline(cin, data);
             stringstream ss(data);
             string token;
-            printf("%i\n", 3);
             while (getline(ss, token, ' ') && token.find('\n') == string::npos)
                 splittedData.push_back(token);
 
-            printf("%i\n", 4);
             int canId = stoi(splittedData[0], nullptr, 16);
-            printf("%i\n", 5);
+
             frame.can_id = canId;
             frame.can_dlc = 8;
-            printf("%i\n", 6);
+
             for (int i = 0; i < 8; i++)
                 frame.data[i] = stoi(splittedData[i + 1], nullptr, 16);
-            printf("%i\n", 7);
+
             write(m_canSocket, &frame, sizeof(struct can_frame));
-            printf("%i\n", 8);
         }
 
         this_thread::sleep_for(1ms);
