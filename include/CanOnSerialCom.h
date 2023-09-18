@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint> // Because of bad include in CppLinuxSerial
+
 #include <CppLinuxSerial/SerialPort.hpp>
 
 #include <string>
