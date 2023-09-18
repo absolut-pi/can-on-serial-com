@@ -18,9 +18,11 @@ void signallCallback(int signum) {
 
 int main() {
     using namespace std;
-    
+
     signal(SIGINT, signallCallback);
 
+    cout << "Press Ctrl+C to exit" << endl;
+    
     for (;;)
         this_thread::sleep_for(chrono::seconds(1));
 
