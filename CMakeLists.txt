@@ -14,7 +14,6 @@ add_subdirectory(src)
 
 set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 
-# install rule
 install(TARGETS ${PROJECT_NAME}
     RUNTIME DESTINATION /usr/local/bin
 )
