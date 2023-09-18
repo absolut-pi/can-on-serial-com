@@ -72,20 +72,14 @@ void CanOnSerialCom::ProxyCanToSerial() {
 
     while (m_isConnected) {
         struct can_frame frame;
-        int nbytes = read(m_canSocket, &frame, sizeof(struct can_frame));
+        if (int nbytes = read(m_canSocket, &frame, sizeof(struct can_frame));
+            nbytes > 0) {
+            string data;
+            for (int i = 0; i < frame.can_dlc; i++)
+                data += fmt::format("{:02X} ", frame.data[i]);
 
-        if (nbytes < 0)
-            throw runtime_error("Failed to read can frame");
-
-        if (nbytes < sizeof(struct can_frame))
-            throw runtime_error("Incomplete can frame read");
-
-        // convert to string
-        string data;
-        for (int i = 0; i < frame.can_dlc; i++)
-            data += fmt::format("{:02X} ", frame.data[i]);
-
-        m_serialPort.Write(data);
+            m_serialPort.Write(data);
+        }
     }
 }
 
