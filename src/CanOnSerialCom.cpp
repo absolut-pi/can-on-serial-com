@@ -71,6 +71,7 @@ void CanOnSerialCom::ProxyCanToSerial() {
         throw runtime_error("Failed to bind can socket");
 
     while (m_isConnected) {
+        printf("can on? \n");
         struct can_frame frame;
         if (int nbytes = read(m_canSocket, &frame, sizeof(struct can_frame));
             nbytes > 0) {
@@ -104,7 +105,7 @@ void CanOnSerialCom::ProxySerialToCan() {
         string data;
 
         m_serialPort.Read(data);
-
+        printf("Serial on ? \n");
         vector<string> splittedData;
         getline(cin, data);
         stringstream ss(data);
