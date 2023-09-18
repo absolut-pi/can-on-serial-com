@@ -121,7 +121,10 @@ void CanOnSerialCom::ProxySerialToCan() {
                 splittedData.push_back(data.substr(
                     p + (p != 0), (q = data.find(" ", p + 1)) - p - (p != 0)));
 
-            while (splittedData[0].size() != 3)
+            // delete elements until find uint32_t one. it should delete 0xCC
+            // but not delete 0xCCC
+            while (splittedData.size() > 0 &&
+                   splittedData[0].size() < sizeof(uint32_t) * 2)
                 splittedData.erase(splittedData.begin());
 
             if (splittedData.empty())
