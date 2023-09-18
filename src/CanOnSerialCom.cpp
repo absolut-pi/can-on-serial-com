@@ -122,7 +122,7 @@ void CanOnSerialCom::ProxySerialToCan() {
             getline(cin, data);
             stringstream ss(data);
             string token;
-            while (getline(ss, token, ' '))
+            while (getline(ss, token, ' ') && token.find('\n') == string::npos)
                 splittedData.push_back(token);
 
             int canId = stoi(splittedData[0], nullptr, 16);
@@ -135,8 +135,6 @@ void CanOnSerialCom::ProxySerialToCan() {
 
             write(m_canSocket, &frame, sizeof(struct can_frame));
         }
-
-        printf("In thread\n");
 
         this_thread::sleep_for(1ms);
     }
