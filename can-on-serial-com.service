@@ -7,3 +7,6 @@ User=root
 ExecStart=/usr/local/bin/can-on-serial-com
 Restart=always
 RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
