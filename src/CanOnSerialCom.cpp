@@ -57,6 +57,7 @@ void CanOnSerialCom::CreateSerialPort() {
 
 void CanOnSerialCom::ProxyCanToSerial() {
     using namespace std;
+    using namespace fmt;
     using namespace mn::CppLinuxSerial;
 
     struct sockaddr_can addr;
@@ -75,19 +76,14 @@ void CanOnSerialCom::ProxyCanToSerial() {
         struct can_frame frame;
         if (int nbytes = read(m_canSocket, &frame, sizeof(struct can_frame));
             nbytes > 0) {
-            vector<uint8_t> binary;
-            binary.push_back(frame.can_id);
-            binary.push_back(frame.can_dlc);
+            string data = fmt::format("{:X} ", frame.can_id);
             for (int i = 0; i < frame.can_dlc; i++)
-                binary.push_back(frame.data[i]);
+                data += fmt::format("{:02X} ", frame.data[i]);
 
-            fmt::print("From can to serial: ");
-            for (size_t i = 0; i < binary.size(); i++)
-                fmt::print("{:02x} ", binary[i]);
-            fmt::print("\n");
+            print("Data from can to serial com: {}\n", data.data());
 
             m_serialPort.Open();
-            m_serialPort.WriteBinary(binary);
+            m_serialPort.Write(data);
             m_serialPort.Close();
         }
         this_thread::sleep_for(1ms);
@@ -113,16 +109,27 @@ void CanOnSerialCom::ProxySerialToCan() {
 
     while (m_isConnected) {
         struct can_frame frame;
-        vector<uint8_t> binary;
+        string data;
+
         m_serialPort.Open();
-        m_serialPort.ReadBinary(binary);
+        m_serialPort.Read(data);
         m_serialPort.Close();
 
-        if (!binary.empty()) {
-            frame.can_id = binary[0];
-            frame.can_dlc = binary[1];
+        if (!data.empty() && data.find("\n") != string::npos) {
+            print("Data from serial com to can: {}\n", data.data());
+
+            vector<string> splittedData;
+            for (size_t p = 0, q = 0; p != data.npos; p = q)
+                splittedData.push_back(data.substr(
+                    p + (p != 0), (q = data.find(" ", p + 1)) - p - (p != 0)));
+
+            int canId = stoi(splittedData[0], nullptr, 16);
+
+            frame.can_id = canId;
+            frame.can_dlc = splittedData.size();
+
             for (int i = 0; i < frame.can_dlc; i++)
-                frame.data[i] = binary[i + 2];
+                frame.data[i] = stoi(splittedData[i], nullptr, 16);
 
             write(m_canSocket, &frame, sizeof(struct can_frame));
         }
