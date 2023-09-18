@@ -10,7 +10,7 @@
 #include <sys/ioctl.h>
 #include <sys/socket.h>
 
-CanOnSerialCom::~CanOnSerialCom() {
+void CanOnSerialCom::ClearVirtualCan() {
     using namespace std;
     using namespace fmt;
     const string downCommand = format("ip link set down {}", m_canDevice);
