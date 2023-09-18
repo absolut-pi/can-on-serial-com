@@ -122,8 +122,11 @@ void CanOnSerialCom::ProxySerialToCan() {
             getline(cin, data);
             stringstream ss(data);
             string token;
-            while (getline(ss, token, ' ') && token.find('\n') == string::npos)
+            while (getline(ss, token, ' ') &&
+                   token.find('\n') == string::npos) {
+                printf("in shitty loop \n");
                 splittedData.push_back(token);
+            }
 
             int canId = stoi(splittedData[0], nullptr, 16);
 
